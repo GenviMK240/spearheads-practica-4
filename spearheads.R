@@ -32,6 +32,15 @@ spear$Materiales=factor(spear$Materiales,levels=c(1,2), labels=c('Bronce', 'Hier
 
 View(spear)
 
+#4
+frecuencia_materiales=table(spear$Materiales)
+View(frecuencia_materiales)
+
+frecuencia_contexto=table(spear$Contexto)
+View(frecuencia_contexto)
+
+frecuencia_conservacion=table(spear$Conservación)
+View(frecuencia_conservacion)
 
 
 
