@@ -2,6 +2,7 @@ getwd()
 nuevo_dir<-"C:/spearheads practica 4"
 setwd(nuevo_dir)
 
+#1
 spear<-read_excel("C:/Descargas Google/spearheads.xlsx")
 View(spear)
 str(spear)
@@ -9,7 +10,8 @@ class(spear)
   
   
   as.data.frame(spear)
-
+  
+#2
 names(spear)[names(spear)== "Mat"]<-"Materiales"
 names(spear)[names(spear)== "Con"]<-"Contexto"
 names(spear)[names(spear)== "Cond"]<-"Conservación"
@@ -43,20 +45,89 @@ frecuencia_conservacion=table(spear$Conservación)
 View(frecuencia_conservacion)
 
 #5
+tabla_cruzada_mat_context <- table(spear$Materiales, spear$Contexto)   
+ print(tabla_cruzada_mat_context)
 
+suma_mat_contexto <- margin.table(tabla_cruzada_mat_context, 2)
+ print(suma_mat_contexto)
+ 
+tabla_cruzada_mat_conservacion <- table(spear$Materiales, spear$Conservación)   
+ print(tabla_cruzada_mat_conservacion)
+ 
+suma_mat_conservacion <- margin.table(tabla_cruzada_mat_conservacion, 2)
+ print(suma_mat_conservacion)
+ 
 #6
-
+ porcentaje_filas_frecuencia_mat <- prop.table(frecuencia_materiales, margin = 1) * 100
+ print(porcentaje_filas_frecuencia_mat)
+ 
+ porcentaje_filas_frecuencia_contexto <- prop.table(frecuencia_contexto, margin = 1) * 100
+ print(porcentaje_filas_frecuencia_contexto)
+ 
+ porcentaje_filas_frecuencia_conservacion <- prop.table(frecuencia_conservacion, margin = 1) * 100
+ print(porcentaje_filas_frecuencia_conservacion)
+ 
 #7
-
+ porcentaje_filas_mat_contexto <- prop.table(tabla_cruzada_mat_context, margin = 1) * 100
+ print(porcentaje_filas_mat_contexto)
+ 
+ porcentaje_filas_mat_conservacion <- prop.table(tabla_cruzada_mat_conservacion, margin = 1) * 100
+ print(porcentaje_filas_mat_conservacion)
+ 
+ porcentaje_columnas_mat_contexto <- prop.table(tabla_cruzada_mat_context, margin = 2) * 100
+ print(porcentaje_columnas_mat_contexto)
+ 
+ porcentaje_columnas_mat_conservacion <- prop.table(tabla_cruzada_mat_conservacion, margin = 2) * 100
+ print(porcentaje_columnas_mat_conservacion)
+ 
 #8
-
+ grafica_conservacion<- barplot(frecuencia_conservacion, 
+         main = "Frecuencia del grado de conservacion",
+         xlab = "Conservacion",
+         ylab = "Frecuencia",
+         col = "skyblue",
+         ylim = c(0, max(frecuencia_contexto) * 1.2), 
+         beside = TRUE)
+         
+ grafica_contexto<- barplot(frecuencia_contexto, 
+         main = "Frecuencia de cada contexto",
+         xlab = "Contexto",
+         ylab = "Frecuencia",
+         col = "pink",
+         ylim = c(0, max(frecuencia_contexto) * 1.2), 
+         beside = TRUE)
 #9
-
+ grafica_horiz_materiales<- barplot(frecuencia_materiales, 
+         horiz = TRUE, 
+         main = "Frecuencia de cada material",
+         xlab = "Frecuencia",
+         ylab = "Material",
+         col = "red",
+         xlim = c(0, max(frecuencia_materiales) * 1.2))
+ 
+ frecuencia_remache= table(spear$Remache)
+ 
+ grafica_horiz_romache<- barplot(frecuencia_remache, 
+                                    horiz = TRUE, 
+                                    main = "Frecuencia de cada remache",
+                                    xlab = "Frecuencia",
+                                    ylab = "Remache",
+                                    col = "blue",
+                                    xlim = c(0, max(frecuencia_materiales) * 1.2))
 #10
-
+ barplot(tabla_cruzada_mat_conservacion,width= 0.85, ylim= c(0, sum(tabla_cruzada_mat_conservacion [,1])*1.1),
+         main = "Gráfico de barras apilado",
+         ylab = "Frecuencia",
+         col = c("darkblue", "red"),
+         legend=T)
+ 
 #11
-
+ 
+ 
 #12
-
+histograma_probabilidad<-  par(mfrow=c(1,2)) 
+ hist.default(spear, prob=TRUE, main="Histograma de Variable", xlab= 1, ylab="Densidad de probabilidad", col="lightblue", border="black")
+ 
+ 
 
 
