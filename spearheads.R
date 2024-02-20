@@ -58,23 +58,23 @@ suma_mat_conservacion <- margin.table(tabla_cruzada_mat_conservacion, 2)
  print(suma_mat_conservacion)
  
 #6
- porcentaje_filas_frecuencia_mat <- prop.table(frecuencia_materiales, margin = 1) * 100
+ porcentaje_filas_frecuencia_mat <- prop.table(frecuencia_materiales) * 100
  print(porcentaje_filas_frecuencia_mat)
  
- porcentaje_filas_frecuencia_contexto <- prop.table(frecuencia_contexto, margin = 1) * 100
+ porcentaje_filas_frecuencia_contexto <- prop.table(frecuencia_contexto) * 100
  print(porcentaje_filas_frecuencia_contexto)
  
- porcentaje_filas_frecuencia_conservacion <- prop.table(frecuencia_conservacion, margin = 1) * 100
+ porcentaje_filas_frecuencia_conservacion <- prop.table(frecuencia_conservacion) * 100
  print(porcentaje_filas_frecuencia_conservacion)
  
 #7
- porcentaje_filas_mat_contexto <- prop.table(tabla_cruzada_mat_context, margin = 1) * 100
+ porcentaje_filas_mat_contexto <- prop.table(tabla_cruzada_mat_context) * 100
  print(porcentaje_filas_mat_contexto)
  
- porcentaje_filas_mat_conservacion <- prop.table(tabla_cruzada_mat_conservacion, margin = 1) * 100
+ porcentaje_filas_mat_conservacion <- prop.table(tabla_cruzada_mat_conservacion) * 100
  print(porcentaje_filas_mat_conservacion)
  
- porcentaje_columnas_mat_contexto <- prop.table(tabla_cruzada_mat_context, margin = 2) * 100
+ porcentaje_columnas_mat_contexto <- prop.table(tabla_cruzada_mat_context) * 100
  print(porcentaje_columnas_mat_contexto)
  
  porcentaje_columnas_mat_conservacion <- prop.table(tabla_cruzada_mat_conservacion, margin = 2) * 100
@@ -122,12 +122,23 @@ suma_mat_conservacion <- margin.table(tabla_cruzada_mat_conservacion, 2)
          legend=T)
  
 #11
- 
- xd
+ pie(frecuencia_conservacion,
+     labels = paste(names(frecuencia_conservacion), "\n", "(", round(porcentaje_filas_frecuencia_conservacion, 2), "%)"),
+     main = "Gráfico de sectores para Conservación",
+     col = rainbow(length(frecuencia_conservacion))
+ )
+     
+    
+     
 #12
-histograma_probabilidad<-  par(mfrow=c(1,2)) 
- hist.default(spear, prob=TRUE, main="Histograma de Variable", xlab= 1, ylab="Densidad de probabilidad", col="lightblue", border="black")
+ par(mfrow = c(1, 2))
+ spear$Conservación <- factor(spear$Conservación, levels = c("Excelente", "Bueno", "Regular", "Malo"), ordered = TRUE)
+numeric_conserv <- as.numeric(spear$Conservacion)
  
- 
+hist(spear$Conservación, prob = TRUE, main = "Histograma de Conservación", xlab = numeric_conserv)
 
-
+spear$Conservación <- as.numeric(as.character(spear$Conservación))
+any(is.na(spear$Conservación))
+all(is.numeric(spear$Conservación))
+unique(spear$Conservación)
+hist(spear$Conservación, breaks = 10, prob = TRUE, main = "Histograma de Conservacion", xlab = "Conservacion", ylab = "Densidad de Probabilidad", col = "lightblue", border = "black")
