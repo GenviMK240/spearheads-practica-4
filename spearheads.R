@@ -123,7 +123,7 @@ suma_mat_conservacion <- margin.table(tabla_cruzada_mat_conservacion, 2)
  
 #11
  
- 
+ xd
 #12
 histograma_probabilidad<-  par(mfrow=c(1,2)) 
  hist.default(spear, prob=TRUE, main="Histograma de Variable", xlab= 1, ylab="Densidad de probabilidad", col="lightblue", border="black")
