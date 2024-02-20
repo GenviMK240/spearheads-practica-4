@@ -23,7 +23,7 @@ names(spear)[names(spear)== "Socle"]<-"Longitud_encaje"
 names(spear)[names(spear)== "Maxwit"]<-"Ancho_max_encaje"
 names(spear)[names(spear)== "Weight"]<-"Peso"
 
-spear
+
 View(spear)
 
 #3
@@ -131,14 +131,11 @@ suma_mat_conservacion <- margin.table(tabla_cruzada_mat_conservacion, 2)
     
      
 #12
- par(mfrow = c(1, 2))
- spear$Conservación <- factor(spear$Conservación, levels = c("Excelente", "Bueno", "Regular", "Malo"), ordered = TRUE)
-numeric_conserv <- as.numeric(spear$Conservacion)
+ variables_continuas = spear[sapply(spear, is.numeric)]
+ windows(width = 10, height = 10)
  
-hist(spear$Conservación, prob = TRUE, main = "Histograma de Conservación", xlab = numeric_conserv)
-
-spear$Conservación <- as.numeric(as.character(spear$Conservación))
-any(is.na(spear$Conservación))
-all(is.numeric(spear$Conservación))
-unique(spear$Conservación)
-hist(spear$Conservación, breaks = 10, prob = TRUE, main = "Histograma de Conservacion", xlab = "Conservacion", ylab = "Densidad de Probabilidad", col = "lightblue", border = "black")
+ hist_prob = hist(unlist(variables_continuas), 
+                  main = "Histograma de Probabilidad",
+                  xlab = "Valores",
+                  col = "blue",
+                  prob = TRUE)
